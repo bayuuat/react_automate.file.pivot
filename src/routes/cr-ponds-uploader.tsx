@@ -49,7 +49,7 @@ export function CRPondsUploader() {
 
     setIsUploading(true)
     try {
-      const res = await fetch('http://localhost:8000/api/cr-ponds/pivot', {
+      const res = await fetch('https://automate.bayuuat.com/api/cr-ponds/pivot', {
         method: 'POST',
         body: formData,
       })

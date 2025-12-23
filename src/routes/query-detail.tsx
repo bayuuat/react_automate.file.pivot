@@ -5,7 +5,7 @@ type SavedQuery = { id: number; name: string; sql: string }
 type RunResp = { columns: string[]; items: any[]; limit: number; offset: number }
 
 export function QueryDetail() {
-  const { id } = useParams({ from: '/queries/$id' }) as { id: string }
+  const { id } = useParams({ from: '/queries/$id' as any }) as { id: string }
   const [query, setQuery] = useState<SavedQuery | null>(null)
   const [columns, setColumns] = useState<string[]>([])
   const [rows, setRows] = useState<any[]>([])

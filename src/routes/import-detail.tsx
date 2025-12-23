@@ -21,7 +21,7 @@ type RowItem = {
 }
 
 export function ImportDetail() {
-  const { id } = useParams({ from: '/imports/$id' }) as { id: string }
+  const { id } = useParams({ from: '/imports/$id' as any }) as { id: string }
   const [job, setJob] = useState<Job | null>(null)
   const [rows, setRows] = useState<RowItem[]>([])
   const [total, setTotal] = useState(0)

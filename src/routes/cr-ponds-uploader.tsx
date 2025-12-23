@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link } from '@tanstack/react-router'
+import { apiUrl } from '@/lib/api'
 import { createRoute } from '@tanstack/react-router'
 
 type JobState = {
@@ -50,7 +51,7 @@ export function CRPondsUploader() {
     try {
       const results = await Promise.all(
         ids.map(async (id) => {
-          const res = await fetch(`/api/imports/${encodeURIComponent(id)}`)
+          const res = await fetch(apiUrl(`/imports/${encodeURIComponent(id)}`))
           if (!res.ok) throw new Error(`Gagal status ${id} (HTTP ${res.status})`)
           const data = await res.json()
           return {
@@ -110,7 +111,7 @@ export function CRPondsUploader() {
 
     setIsUploading(true)
     try {
-      const res = await fetch('/api/imports/excel', {
+      const res = await fetch(apiUrl('/imports/excel'), {
         method: 'POST',
         body: formData,
       })

@@ -15,9 +15,9 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Proxy semua request /api/* ke Go service lokal (default port 8080)
+      // Proxy semua request /api/* ke Go service lokal (unik port 18080)
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:18080',
         changeOrigin: true,
         // Hilangkan prefix /api jika Go tidak menggunakannya
         rewrite: (path) => path.replace(/^\/api/, ''),

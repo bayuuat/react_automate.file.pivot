@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, createRoute } from '@tanstack/react-router'
+import { apiUrl } from '@/lib/api'
 
 type ImportJob = {
   id: string
@@ -24,7 +25,7 @@ export function ImportsList() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch(`/api/imports?limit=${pageSize}&offset=${page * pageSize}`)
+      const res = await fetch(apiUrl(`/imports?limit=${pageSize}&offset=${page * pageSize}`))
       if (!res.ok) throw new Error(`Gagal memuat daftar (HTTP ${res.status})`)
       const data = await res.json()
       setItems(data.items ?? [])

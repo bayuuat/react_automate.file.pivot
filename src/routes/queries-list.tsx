@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, createRoute } from '@tanstack/react-router'
+import { apiUrl } from '@/lib/api'
 
 type SavedQuery = {
   id: number
@@ -20,7 +21,7 @@ export function QueriesList() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch(`/api/queries?limit=${pageSize}&offset=${page * pageSize}`)
+      const res = await fetch(apiUrl(`/queries?limit=${pageSize}&offset=${page * pageSize}`))
       if (!res.ok) throw new Error(`Gagal memuat daftar (HTTP ${res.status})`)
       const data = await res.json()
       setItems(data.items ?? [])
@@ -42,7 +43,7 @@ export function QueriesList() {
   const onDelete = async (id: number) => {
     if (!confirm('Hapus query ini?')) return
     try {
-      const res = await fetch(`/api/queries/${id}`, { method: 'DELETE' })
+      const res = await fetch(apiUrl(`/queries/${id}`), { method: 'DELETE' })
       if (!res.ok) throw new Error(`Gagal menghapus (HTTP ${res.status})`)
       await load()
     } catch (err: any) {

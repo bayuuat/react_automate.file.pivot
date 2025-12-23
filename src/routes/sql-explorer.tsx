@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, createRoute } from '@tanstack/react-router'
+import { apiUrl } from '@/lib/api'
 
 type QueryResponse = {
   columns: string[]
@@ -31,7 +32,7 @@ export function SQLExplorer() {
     async (p: number, append: boolean) => {
       setLoading(true)
       try {
-        const res = await fetch('/api/query/sql', {
+        const res = await fetch(apiUrl('/query/sql'), {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ sql: sqlText, limit: pageSize, offset: p * pageSize }),
@@ -78,7 +79,7 @@ export function SQLExplorer() {
       return
     }
     try {
-      const res = await fetch('/api/queries', {
+      const res = await fetch(apiUrl('/queries'), {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ name: saveName.trim(), sql: sqlText }),

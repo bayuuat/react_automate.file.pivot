@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, createRoute, useParams } from '@tanstack/react-router'
+import { apiUrl } from '@/lib/api'
 
 type Job = {
   id: string
@@ -33,7 +34,7 @@ export function ImportDetail() {
   async function loadJob() {
     setError(null)
     try {
-      const res = await fetch(`/api/imports/${encodeURIComponent(id)}`)
+      const res = await fetch(apiUrl(`/imports/${encodeURIComponent(id)}`))
       if (!res.ok) throw new Error(`Gagal memuat job (HTTP ${res.status})`)
       const data = await res.json()
       setJob(data)
@@ -47,7 +48,7 @@ export function ImportDetail() {
     setError(null)
     try {
       const res = await fetch(
-        `/api/imports/${encodeURIComponent(id)}/rows?limit=${pageSize}&offset=${page * pageSize}`,
+        apiUrl(`/imports/${encodeURIComponent(id)}/rows?limit=${pageSize}&offset=${page * pageSize}`),
       )
       if (!res.ok) throw new Error(`Gagal memuat baris (HTTP ${res.status})`)
       const data = await res.json()

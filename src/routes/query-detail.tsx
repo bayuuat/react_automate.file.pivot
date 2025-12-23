@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, createRoute, useParams } from '@tanstack/react-router'
+import { apiUrl } from '@/lib/api'
 
 type SavedQuery = { id: number; name: string; sql: string }
 type RunResp = { columns: string[]; items: any[]; limit: number; offset: number }
@@ -18,7 +19,7 @@ export function QueryDetail() {
 
   async function loadQuery() {
     setError(null)
-    const res = await fetch(`/api/queries/${encodeURIComponent(id)}`)
+    const res = await fetch(apiUrl(`/queries/${encodeURIComponent(id)}`))
     if (!res.ok) {
       setError(`Gagal memuat query (HTTP ${res.status})`)
       return
@@ -30,7 +31,7 @@ export function QueryDetail() {
   async function runPage(p: number, append: boolean) {
     setLoading(true)
     try {
-      const res = await fetch(`/api/queries/${encodeURIComponent(id)}/run`, {
+      const res = await fetch(apiUrl(`/queries/${encodeURIComponent(id)}/run`), {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify({ limit: pageSize, offset: p * pageSize }),
@@ -55,7 +56,7 @@ export function QueryDetail() {
   async function onSave() {
     if (!query) return
     setError(null)
-    const res = await fetch(`/api/queries/${encodeURIComponent(id)}`, {
+    const res = await fetch(apiUrl(`/queries/${encodeURIComponent(id)}`), {
       method: 'PUT',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ name: query.name, sql: query.sql }),

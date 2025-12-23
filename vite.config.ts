@@ -13,4 +13,15 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  server: {
+    proxy: {
+      // Proxy semua request /api/* ke Go service lokal (default port 8080)
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        // Hilangkan prefix /api jika Go tidak menggunakannya
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

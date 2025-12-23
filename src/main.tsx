@@ -9,6 +9,11 @@ import {
 } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { CRPondsUploader } from './routes/cr-ponds-uploader.tsx'
+import ImportsListRoute from './routes/imports-list.tsx'
+import ImportDetailRoute from './routes/import-detail.tsx'
+import SQLExplorerRoute from './routes/sql-explorer.tsx'
+import QueriesListRoute from './routes/queries-list.tsx'
+import QueryDetailRoute from './routes/query-detail.tsx'
 
 import * as TanStackQueryProvider from './integrations/tanstack-query/root-provider.tsx'
 
@@ -32,6 +37,11 @@ const indexRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   indexRoute,
+  ImportsListRoute(rootRoute),
+  ImportDetailRoute(rootRoute),
+  SQLExplorerRoute(rootRoute),
+  QueriesListRoute(rootRoute),
+  QueryDetailRoute(rootRoute),
 ])
 
 const TanStackQueryProviderContext = TanStackQueryProvider.getContext()
